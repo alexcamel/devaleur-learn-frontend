@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-ink: #10172A;
+  --color-ink-soft: #1C2740;
+  --color-paper: #F1F3F6;
+  --color-paper-card: #FFFFFF;
+  --color-slate: #444B5C;
+  --color-amber: #F5A623;
+  --color-amber-soft: #FDECC8;
+  --color-amber-deep: #C9820A;
+  --color-teal: #1B998B;
+  --color-teal-soft: #DCF3EF;
+  --color-line: #DCE0E8;
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-paper-card);
+  --color-card-foreground: var(--color-ink);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-amber);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: #E7E9EE;
+  --color-muted-foreground: var(--color-slate);
+  --color-accent: var(--color-teal-soft);
+  --color-accent-foreground: var(--color-teal);
+  --color-destructive: #D64545;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-ink);
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+  .font-mono-data {
+    font-family: var(--font-mono);
+  }
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  /* Signature element: the "spine" - a stitched ledger line used on course
+     cards to represent lesson-by-lesson progress, like a bookbinding seam. */
+  .spine {
+    position: relative;
+  }
+  .spine::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 3px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--color-line) 0px,
+      var(--color-line) 5px,
+      transparent 5px,
+      transparent 9px
+    );
+    transition: background 0.4s ease;
+  }
+  .spine-filled::before {
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--color-amber) 0px,
+      var(--color-amber) 5px,
+      transparent 5px,
+      transparent 9px
+    );
+  }
+
+  /* Ink hero texture: a faint ledger-rule + radial glow, used once on the
+     landing hero so it stays the boldest surface on the page. */
+  .ink-panel {
+    background-color: var(--color-ink);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 85% 0%, rgba(245, 166, 35, 0.18), transparent 60%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.035) 0px,
+        rgba(255, 255, 255, 0.035) 1px,
+        transparent 1px,
+        transparent 36px
+      );
+  }
+
+  .grain {
+    position: relative;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-fade-up-delay-1 { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+  .animate-fade-up-delay-2 { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+  .animate-fade-up-delay-3 { animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3 {
+    animation: none;
+  }
+}
